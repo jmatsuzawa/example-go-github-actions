@@ -1,0 +1,19 @@
+name: Share data
+
+on:
+  push:
+    branches:
+    - share-test
+
+jobs:
+  share-by-file:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "hello file sharing ${GITHUB_WORKSPACE}" > ${GITHUB_WORKSPACE}/test.txt
+    - run: echo "read from file -> $(cat ${GITHUB_WORKSPACE}/test.txt)"
+  share-by-output:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo '::set-output name=MY_NUMBER::12345'
+      id: set-number
+    - run: echo "my number is -> ${{ steps.set-number.output.MY_NUMBER}}"
